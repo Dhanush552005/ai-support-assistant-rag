@@ -1,15 +1,22 @@
-"""
-CLI entry point for the e-commerce support pipeline (triage → RAG → resolution).
-
-Run from project root:
-    python src/main.py
-"""
 
 from __future__ import annotations
 
 from agents import run_agents
 
 EXAMPLE_TICKET = "My order arrived damaged, can I get refund?"
+
+
+def get_default_order_context() -> dict:
+    """Return a sample order context (can be replaced with real data)."""
+    return {
+        "order_date": "2026-03-20",
+        "delivery_date": "2026-03-25",
+        "item_category": "perishable",
+        "fulfillment_type": "first-party",
+        "shipping_region": "India",
+        "order_status": "delivered",
+        "payment_method": "prepaid"
+    }
 
 
 def main() -> None:
@@ -23,7 +30,16 @@ def main() -> None:
     if not raw:
         print("(Using example ticket.)\n")
 
-    response = run_agents(ticket)
+    
+    order_context = get_default_order_context()
+
+    print("Order Context:")
+    for k, v in order_context.items():
+        print(f"  {k}: {v}")
+    print()
+
+
+    response = run_agents(ticket, order_context)
 
     width = 64
     print("=" * width)

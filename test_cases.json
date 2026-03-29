@@ -1,0 +1,25 @@
+[
+  {"id":1,"type":"standard","ticket":"My laptop arrived damaged, can I get a refund?","expected":"approve"},
+  {"id":2,"type":"standard","ticket":"I received the wrong size shirt, can I return it?","expected":"approve"},
+  {"id":3,"type":"standard","ticket":"My order was not delivered, what should I do?","expected":"needs escalation"},
+  {"id":4,"type":"standard","ticket":"I want to cancel my order before shipping","expected":"approve"},
+  {"id":5,"type":"standard","ticket":"I was charged twice for my order","expected":"needs escalation"},
+  {"id":6,"type":"standard","ticket":"My package arrived late, can I get compensation?","expected":"partial"},
+  {"id":7,"type":"standard","ticket":"I want to return an unused product","expected":"approve"},
+  {"id":8,"type":"standard","ticket":"My item is defective, can I replace it?","expected":"approve"},
+
+  {"id":9,"type":"exception","ticket":"I opened the food item and now want to return it","expected":"deny"},
+  {"id":10,"type":"exception","ticket":"This was a final sale item, can I return it?","expected":"deny"},
+  {"id":11,"type":"exception","ticket":"My hygiene product is opened, can I return it?","expected":"deny"},
+  {"id":12,"type":"exception","ticket":"My frozen food arrived spoiled, can I get refund?","expected":"partial"},
+  {"id":13,"type":"exception","ticket":"I returned the item after 10 days, can I still get refund?","expected":"deny"},
+  {"id":14,"type":"exception","ticket":"My chocolate melted during delivery, can I get refund?","expected":"partial"},
+
+  {"id":15,"type":"conflict","ticket":"My item was delayed and damaged, I want full refund and keep item","expected":"partial"},
+  {"id":16,"type":"conflict","ticket":"Seller says no return but product is defective","expected":"needs escalation"},
+  {"id":17,"type":"conflict","ticket":"Policy says no refund but item arrived broken","expected":"needs escalation"},
+
+  {"id":18,"type":"not_policy","ticket":"Can I get refund because I don’t like the color?","expected":"deny"},
+  {"id":19,"type":"not_policy","ticket":"Can you give me extra discount after purchase?","expected":"deny"},
+  {"id":20,"type":"not_policy","ticket":"Hello, how are you?","expected":"needs escalation"}
+]

@@ -68,7 +68,18 @@ if st.button("Generate Resolution", type="primary"):
         with st.status("🤖 AI Agents Collaborating...", expanded=True) as status:
             st.write("🔍 **Triage Agent:** Classifying issue intent...")
             # We'll call the actual function here
-            raw_response = run_agents(ticket)
+            # ✅ Add Order Context
+            order_context = {
+                "order_date": "2026-03-20",
+                "delivery_date": "2026-03-25",
+                "item_category": "perishable",
+                "fulfillment_type": "first-party",
+                "shipping_region": "India",
+                "order_status": "delivered",
+                "payment_method": "prepaid"
+            }
+
+            raw_response = run_agents(ticket, order_context)
             
             st.write("📚 **Retriever Agent:** Fetching policy documents...")
             st.write("⚖️ **Resolution Agent:** Drafting grounded response...")
