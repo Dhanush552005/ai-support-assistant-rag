@@ -3,19 +3,16 @@ import os
 import streamlit as st
 import re
 
-# Fix import path
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 from agents import run_agents
 
-# --- PAGE CONFIG ---
 st.set_page_config(
     page_title="SupportAI | Resolution Engine",
     page_icon="🤖",
-    layout="wide", # Wider layout feels more like a professional dashboard
+    layout="wide", 
     initial_sidebar_state="expanded"
 )
 
-# --- CUSTOM STYLING ---
 st.markdown("""
     <style>
     .main { background-color: #f8f9fa; }
@@ -24,7 +21,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- SIDEBAR ---
 with st.sidebar:
     st.title("🛠️ System Control")
     st.info("Current Model: `llama-3.1-8b-instant` (via Groq)")
@@ -35,22 +31,21 @@ with st.sidebar:
         st.cache_resource.clear()
         st.rerun()
 
-# --- MAIN UI ---
+
 st.title("🛒 E-commerce Support Resolution")
 st.caption("Internal Agent Tool • Powered by RAG Multi-Agent Pipeline")
 
-# Ticket Input Section
+
 ticket = st.text_area(
     "Customer Ticket Inquiry", 
     placeholder="Example: 'My order arrived damaged, can I get refund?'",
     height=150
 )
 
-# Function to parse the structured output (assuming specific headers exist)
+
 def parse_sections(text):
     sections = {}
     current_key = "General"
-    # Logic to split based on "Header:" format
     lines = text.split('\n')
     for line in lines:
         if ":" in line and len(line.split(":")[0].split()) < 4:
@@ -64,11 +59,8 @@ if st.button("Generate Resolution", type="primary"):
     if not ticket.strip():
         st.warning("⚠️ Please enter a ticket description before proceeding.")
     else:
-        # 1. Multi-Agent Status Tracking
         with st.status("🤖 AI Agents Collaborating...", expanded=True) as status:
             st.write("🔍 **Triage Agent:** Classifying issue intent...")
-            # We'll call the actual function here
-            # ✅ Add Order Context
             order_context = {
                 "order_date": "2026-03-20",
                 "delivery_date": "2026-03-25",
@@ -85,8 +77,6 @@ if st.button("Generate Resolution", type="primary"):
             st.write("⚖️ **Resolution Agent:** Drafting grounded response...")
             st.write("✅ **Compliance Agent:** Validating output structure...")
             status.update(label="Resolution Ready!", state="complete", expanded=False)
-
-        # 2. Displaying the Resulting Sections professionally
         st.divider()
         data = parse_sections(raw_response)
         
@@ -94,7 +84,6 @@ if st.button("Generate Resolution", type="primary"):
 
         with col1:
             st.subheader("📝 Resolution Summary")
-            # Highlight the Decision
             decision = data.get("Decision", "Review Required").upper()
             st.info(f"**Final Decision:** {decision}")
             
@@ -115,8 +104,6 @@ if st.button("Generate Resolution", type="primary"):
             
             with st.expander("Required Next Steps"):
                 st.write(data.get("Next Steps", "Standard escalation."))
-
-        # 3. Raw Logs (Hidden by default for devs)
         with st.expander("See Raw Model Output (Debug)"):
             st.code(raw_response)
 
