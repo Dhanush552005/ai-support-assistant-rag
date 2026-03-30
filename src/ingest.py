@@ -20,7 +20,6 @@ EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 
 def load_markdown_documents(policies_dir: Path) -> list[Document]:
-    """Load all .md files from policies_dir as LangChain Documents with source metadata."""
     documents: list[Document] = []
     if not policies_dir.is_dir():
         raise FileNotFoundError(f"Policies directory not found: {policies_dir}")

@@ -19,7 +19,6 @@ _TRIAGE_RULES: tuple[tuple[tuple[str, ...], str], ...] = (
 
 
 def triage_agent(ticket: str) -> str:
-    """Classify issue type from ticket text (simple keyword triage)."""
     t = ticket.lower()
     for keywords, label in _TRIAGE_RULES:
         if any(k in t for k in keywords):
@@ -28,7 +27,6 @@ def triage_agent(ticket: str) -> str:
 
 
 def retriever_agent(query: str) -> list[dict[str, Any]]:
-    """Retrieve top policy chunks for the ticket/query."""
     return get_relevant_docs(query)
 
 
@@ -37,15 +35,10 @@ def resolution_agent(
     retrieved_docs: list[dict[str, Any]],
     order_context: dict
 ) -> str:
-    """Draft structured resolution from ticket + retrieved evidence + order context."""
     return generate_support_response(ticket, retrieved_docs, order_context)
 
 
 def compliance_agent(response: str) -> str | None:
-    """
-    Check that the resolution includes required section headers.
-    Returns a warning string if something is missing, else None.
-    """
     if not response:
         return "Warning: empty response from model"
 
@@ -64,10 +57,6 @@ def compliance_agent(response: str) -> str | None:
 
 
 def run_agents(ticket: str, order_context: dict) -> str:
-    """
-    Run triage → retrieval → resolution → compliance.
-    Returns the final response text (compliance warning appended if needed).
-    """
     issue_type = triage_agent(ticket)
 
     retrieved = retriever_agent(ticket)

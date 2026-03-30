@@ -19,7 +19,6 @@ _retriever = None
 
 
 def _get_retriever():
-    """Lazy-init embeddings and similarity retriever (top_k=3)."""
     global _embeddings, _retriever
     if _retriever is not None:
         return _retriever
@@ -43,13 +42,6 @@ def _get_retriever():
 
 
 def get_relevant_docs(query: str) -> list[dict[str, Any]]:
-    """
-    Return the top 3 most similar chunks for a ticket query.
-
-    Each item has:
-      - content: chunk text
-      - metadata: dict (includes 'source' file name from ingest)
-    """
     retriever = _get_retriever()
     docs = retriever.invoke(query)
     return [
@@ -59,7 +51,6 @@ def get_relevant_docs(query: str) -> list[dict[str, Any]]:
 
 
 def print_results(results: list[dict[str, Any]], snippet_len: int = 400) -> None:
-    """Print each hit with source and a readable content snippet."""
     line = "=" * 72
     print(line)
     print(f"RESULTS ({len(results)} chunks)")

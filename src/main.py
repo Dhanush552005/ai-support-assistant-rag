@@ -7,7 +7,6 @@ EXAMPLE_TICKET = "My order arrived damaged, can I get refund?"
 
 
 def get_default_order_context() -> dict:
-    """Return a sample order context (can be replaced with real data)."""
     return {
         "order_date": "2026-03-20",
         "delivery_date": "2026-03-25",
