@@ -1,9 +1,4 @@
-"""
-Ingest policy markdown files, chunk, embed with HuggingFace, and persist a FAISS index.
 
-Run from project root:
-    python src/ingest.py
-"""
 
 from __future__ import annotations
 

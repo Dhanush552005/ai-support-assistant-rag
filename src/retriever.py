@@ -1,9 +1,4 @@
-"""
-Load a persisted FAISS index and retrieve top-k policy chunks for a support ticket query.
 
-Run from project root (after ingest.py has built faiss_index/):
-    python src/retriever.py
-"""
 
 from __future__ import annotations
 
